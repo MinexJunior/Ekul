@@ -3,315 +3,1151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Condo-Calc: Shared Apartment & Building Expense Splitter</title>
+  <title>Ekul (እኩል) - Ethiopian Apartment Area Management Platform</title>
   
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="A database-free, lightweight web application for splitting irregular community bills (security guard, garbage, water pump fuel, shared lighting) unevenly among apartment residents. Tailored for Ethiopian payment methods (Telebirr, CBE).">
-  <meta name="keywords" content="apartment expense splitter, condo calc, ethiopia condo bill, telebirr expense calculator, cbe bill splitter, shared flat cost sharing">
-  <meta name="author" content="Minas">
+  <!-- SEO & Mobile Meta Tags -->
+  <meta name="description" content="Ekul (እኩል) - Integrated platform for apartment area management in Ethiopia: rent, utilities, parking, vehicle gate fees, staff cuts, and owner settlement.">
+  <meta name="keywords" content="ekul, condo management ethiopia, apartment expense splitter, ethiopia rent collection, gate fee cashier, owner settlement">
+  <meta name="author" content="Minase Nikola">
   
-  <!-- Progressive Web App Theme -->
+  <!-- PWA Theme -->
   <meta name="theme-color" content="#2d201a">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22><rect width=%22512%22 height=%22512%22 rx=%22100%22 fill=%22%232d201a%22/><path d=%22M256 90L90 220v202h110V290h110v132h110V220L256 90z%22 fill=%22%23c39c4d%22/><circle cx=%22256%22 cy=%22360%22 r=%2220%22 fill=%22%23f5ebe6%22/></svg>">
   
-  <!-- Premium Stylesheet -->
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="app-container">
     
-    <!-- HEADER BRANDING & LANGUAGE CONTROLS -->
+    <!-- TOP HEADER -->
     <header>
       <div class="brand-section">
-        <div class="brand-logo">
-          <!-- House Logo SVG -->
-          <svg viewBox="0 0 24 24" width="24" height="24">
+        <div class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
         </div>
         <div class="brand-title">
-          <h1 data-i18n="app_title">Condo-Calc</h1>
-          <p data-i18n="app_subtitle">Ethiopian Condo Expense Splitter</p>
+          <h1>
+            <span class="ethiopic-tag">እኩል</span>
+            <span>Ekul</span>
+          </h1>
+          <p class="brand-subtitle" data-i18n="app_tagline">Fair shares, peaceful homes</p>
         </div>
       </div>
       
-      <div class="header-actions">
-        <button id="lang-am-btn" class="lang-btn" aria-label="Switch to Amharic">
-          <span id="lang-am-indicator" class="active-indicator"></span> አማርኛ
-        </button>
-        <button id="lang-en-btn" class="lang-btn" aria-label="Switch to English">
-          <span id="lang-en-indicator" class="active-indicator"></span> English
-        </button>
+      <div class="header-controls">
+        <div class="estate-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+          <span id="header-estate-name" data-i18n="demo_compound_name">Abyssinia Compound</span>
+        </div>
+
+        <!-- Language Switcher -->
+        <div class="lang-switch" role="group" aria-label="Language selection">
+          <button id="lang-am-btn" class="lang-btn" aria-label="Switch to Amharic">አማርኛ</button>
+          <button id="lang-en-btn" class="lang-btn active" aria-label="Switch to English">English</button>
+        </div>
       </div>
     </header>
 
-    <!-- METRICS/STATS BOARD -->
-    <section class="stats-board" aria-label="Current Summary Statistics">
+    <!-- PORTAL SWITCHER NAVIGATION -->
+    <nav class="portal-nav-bar" aria-label="Main Portals">
+      <button class="portal-nav-btn active" data-portal="family">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span data-i18n="nav_family">Family Portal</span>
+      </button>
+
+      <button class="portal-nav-btn" data-portal="owner">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="22" x2="9" y2="22.01"/><line x1="15" y1="22" x2="15" y2="22.01"/><line x1="9" y1="18" x2="9" y2="18.01"/><line x1="15" y1="18" x2="15" y2="18.01"/><line x1="9" y1="14" x2="9" y2="14.01"/><line x1="15" y1="14" x2="15" y2="14.01"/><line x1="9" y1="10" x2="9" y2="10.01"/><line x1="15" y1="10" x2="15" y2="10.01"/><line x1="9" y1="6" x2="9" y2="6.01"/><line x1="15" y1="6" x2="15" y2="6.01"/></svg>
+        <span data-i18n="nav_owner">Owner Portal</span>
+      </button>
+
+      <button class="portal-nav-btn" data-portal="admin">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span data-i18n="nav_admin">Admin Portal</span>
+      </button>
+
+      <button class="portal-nav-btn" data-portal="gate">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+        <span data-i18n="nav_gate">Gate Console</span>
+      </button>
+
+      <button class="portal-nav-btn" data-portal="splitter">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+        <span data-i18n="nav_splitter">Bill Splitter</span>
+      </button>
+    </nav>
+
+    <!-- DYNAMIC METRICS / STATUS BOARD -->
+    <section class="stats-board" aria-label="Portal Metrics">
       <div class="stat-card">
-        <div id="stat-total-expenses" class="stat-val">0.00 ETB</div>
-        <div class="stat-lbl" data-i18n="total_expenses">Total Expenses</div>
+        <div id="stat-1-val" class="stat-val">9,730.00 ETB</div>
+        <div id="stat-1-lbl" class="stat-lbl" data-i18n="metric_family_due">My Total Due</div>
+        <div id="stat-1-sub" class="stat-sub" data-i18n="metric_family_sub">Due on 5th of the month</div>
       </div>
       <div class="stat-card">
-        <div id="stat-active-units" class="stat-val">0</div>
-        <div class="stat-lbl" data-i18n="active_households">Active Units</div>
+        <div id="stat-2-val" class="stat-val">Pending</div>
+        <div id="stat-2-lbl" class="stat-lbl" data-i18n="metric_payment_status">Payment Status</div>
+        <div id="stat-2-sub" class="stat-sub" data-i18n="metric_status_sub">Awaiting confirmation</div>
       </div>
       <div class="stat-card">
-        <div id="stat-residents" class="stat-val">0</div>
-        <div class="stat-lbl" data-i18n="total_occupants">Total Residents</div>
+        <div id="stat-3-val" class="stat-val">1 Registered</div>
+        <div id="stat-3-lbl" class="stat-lbl" data-i18n="metric_active_cars">Family Vehicles</div>
+        <div id="stat-3-sub" class="stat-sub" data-i18n="metric_cars_sub">Slot A-12 (Covered)</div>
+      </div>
+      <div class="stat-card">
+        <div id="stat-4-val" class="stat-val">3 Vacant</div>
+        <div id="stat-4-lbl" class="stat-lbl" data-i18n="metric_free_houses">Free Houses</div>
+        <div id="stat-4-sub" class="stat-sub" data-i18n="metric_free_sub">Available to rent</div>
       </div>
     </section>
 
-    <!-- MAIN APP INTERACTION GRID -->
-    <main class="app-grid">
+    <!-- ====================================================================
+         1. FAMILY PORTAL VIEW
+         ==================================================================== -->
+    <section id="portal-family-view" class="portal-view active">
       
-      <!-- LEFT-HAND COLUMN (INPUT FORMS) -->
-      <div class="inputs-panel" style="display: flex; flex-direction: column; gap: 25px;">
-        
-        <!-- CARD 1: HOUSEHOLD/RESIDENT DIRECTORY -->
-        <section class="glass-card" aria-labelledby="households-section-title">
-          <div class="card-title-section">
-            <h2 id="households-section-title" class="card-title">
-              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              <span data-i18n="households_title">Household Directory</span>
-            </h2>
+      <!-- Tenant Selector for demo switching -->
+      <div class="glass-card" style="padding: 12px 18px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <span style="font-size: 13px; color: var(--text-secondary);" data-i18n="logged_as_family">Viewing as Family:</span>
+            <strong id="family-selected-name" style="color: var(--accent-gold-light); margin-left: 6px;">Family Abebe (Block A, Apt 207)</strong>
           </div>
-          <p class="card-subtitle" data-i18n="households_subtitle">Manage residents, occupancy, and exemptions</p>
-          
-          <!-- QUICK PRESETS BADGES -->
-          <div class="preset-badges-container">
-            <span style="font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; display: block;" data-i18n="quick_add_presets">Quick-Add Presets:</span>
-            <div class="preset-badges">
-              <button id="btn-preset-block" class="preset-badge" data-i18n="preset_block_b4">Standard Building (8 Units)</button>
-              <button id="btn-preset-shared" class="preset-badge" data-i18n="preset_shared_flat">Shared Student Flat (4 Units)</button>
-            </div>
+          <div style="display: flex; gap: 8px;">
+            <select id="family-account-select" style="padding: 6px 12px; font-size: 13px; width: auto;">
+              <option value="fam-1">Family Abebe — Block A, Room 207</option>
+              <option value="fam-2">Family Almaz — Block A, Room 102</option>
+              <option value="fam-3">Family Dawit — Block B, Room 301</option>
+            </select>
           </div>
+        </div>
+      </div>
 
-          <!-- HOUSEHOLD ADD FORM -->
-          <form id="add-household-form" style="margin-top: 15px;">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="household-flat" data-i18n="flat_no">Condo / Flat No.</label>
-                <input type="text" id="household-flat" required placeholder="e.g., B-4/102">
+      <div class="view-grid">
+        
+        <!-- Left Column: Current Statement -->
+        <div>
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <span data-i18n="family_monthly_bill">My Monthly Bill</span>
+              </h2>
+              <span id="family-bill-period" class="badge badge-info">Meskerem 2026</span>
+            </div>
+            <p class="card-subtitle" data-i18n="family_bill_sub">Transparent breakdown of rent, utilities, parking, and compound services</p>
+
+            <!-- Line Items Breakdown -->
+            <div class="bill-breakdown-card">
+              <div class="bill-line-item">
+                <span data-i18n="line_rent">House Rent (Agreed Monthly)</span>
+                <strong id="fam-line-rent">8,000.00 ETB</strong>
               </div>
-              <div class="form-group">
-                <label for="household-name" data-i18n="resident_name">Resident Name</label>
-                <input type="text" id="household-name" required placeholder="e.g., Abebe Kebede">
+              <div class="bill-line-item">
+                <span data-i18n="line_elec">Electricity (Private Meter Units)</span>
+                <strong id="fam-line-elec">450.00 ETB</strong>
+              </div>
+              <div class="bill-line-item">
+                <span data-i18n="line_water">Water Share (Building Usage)</span>
+                <strong id="fam-line-water">180.00 ETB</strong>
+              </div>
+              <div class="bill-line-item">
+                <span data-i18n="line_parking">Resident Vehicle Parking (1 Slot)</span>
+                <strong id="fam-line-parking">600.00 ETB</strong>
+              </div>
+              <div class="bill-line-item">
+                <span data-i18n="line_services">Guard, Area Keeper & Cleaning Share</span>
+                <strong id="fam-line-services">500.00 ETB</strong>
+              </div>
+              <div class="bill-line-item total-line">
+                <span data-i18n="line_total_due">Total Amount Due</span>
+                <strong id="fam-line-total">9,730.00 ETB</strong>
               </div>
             </div>
-            
-            <div class="form-row" style="align-items: center;">
-              <div class="form-group">
-                <label for="household-occupants" data-i18n="occupants_count">No. of Residents</label>
-                <input type="number" id="household-occupants" value="2" min="0" max="20" required>
+
+            <!-- Due Date Alert Notice -->
+            <div style="background: rgba(236, 201, 75, 0.1); border-left: 3px solid var(--accent-warning); padding: 10px 14px; border-radius: var(--radius-sm); margin-bottom: 16px;">
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span style="font-size: 13px;" data-i18n="due_alert_msg">Payment due by the 5th of this month. Please transfer via Telebirr or CBE and submit your transaction code below.</span>
               </div>
+            </div>
+
+            <!-- Submit Payment Section -->
+            <div style="background: var(--bg-surface); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+              <h3 style="font-size: 14px; margin-bottom: 8px; color: var(--accent-gold-light);" data-i18n="submit_payment_hdr">Confirm Your Payment</h3>
               
-              <!-- Ground floor exemption toggle -->
-              <div class="form-group">
-                <div class="switch-container">
-                  <div class="switch-label-group">
-                    <span style="font-size: 13px; font-weight: 500;" data-i18n="ground_exempt">Is Ground Floor?</span>
-                    <span class="switch-subtext">Water Pump Exempt</span>
-                  </div>
-                  <label class="switch" for="household-ground-exempt">
-                    <input type="checkbox" id="household-ground-exempt">
-                    <span class="slider"></span>
-                  </label>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="pay-method" data-i18n="pay_method">Payment Method</label>
+                  <select id="pay-method">
+                    <option value="Telebirr">Telebirr (0911223344)</option>
+                    <option value="CBE">Commercial Bank of Ethiopia (1000123456789)</option>
+                    <option value="Cash">Cash to Administrator</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="pay-ref" data-i18n="pay_reference">Transaction / Receipt Code</label>
+                  <input type="text" id="pay-ref" placeholder="e.g. CBE98273618 or FT2611...">
                 </div>
               </div>
+
+              <button id="btn-submit-payment" class="btn btn-primary btn-block" style="margin-top: 6px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="btn_submit_payment">Submit Payment for Confirmation</span>
+              </button>
             </div>
 
-            <div class="form-row" style="align-items: center; margin-top: -5px;">
-              <!-- Student discount toggle -->
-              <div class="form-group" style="grid-column: span 2;">
-                <div class="switch-container">
-                  <div class="switch-label-group">
-                    <span style="font-size: 13px; font-weight: 500;" data-i18n="student_discount">Is Student / Shared?</span>
-                    <span class="switch-subtext">Pays half-share of bills</span>
+          </div>
+        </div>
+
+        <!-- Right Column: Registered Vehicles & Available Free Houses -->
+        <div>
+          <!-- My Vehicles -->
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                <span data-i18n="family_vehicles_title">My Registered Vehicles</span>
+              </h2>
+              <span class="badge badge-success" data-i18n="gate_pass_active">Gate Pass Active</span>
+            </div>
+            <p class="card-subtitle" data-i18n="family_vehicles_sub">Registered cars enter and exit freely at the gate without visitor tariffs</p>
+
+            <div class="table-responsive">
+              <table class="ekul-table">
+                <thead>
+                  <tr>
+                    <th data-i18n="col_plate">Plate Number</th>
+                    <th data-i18n="col_type">Vehicle Type</th>
+                    <th data-i18n="col_slot">Slot Assigned</th>
+                    <th class="text-right" data-i18n="col_monthly_fee">Monthly Fee</th>
+                  </tr>
+                </thead>
+                <tbody id="family-vehicles-tbody">
+                  <tr>
+                    <td><strong>2-B-44122 AA</strong></td>
+                    <td>Toyota Vitz</td>
+                    <td>Slot A-12 (Open)</td>
+                    <td class="text-right">600.00 ETB</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Free Houses Directory (Tenant view) -->
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span data-i18n="free_houses_title">Free Houses in Compound</span>
+              </h2>
+              <span class="badge badge-info" id="free-houses-count-badge">3 Available</span>
+            </div>
+            <p class="card-subtitle" data-i18n="free_houses_sub">Officially listed vacant units available for rent in our compound</p>
+
+            <div id="free-houses-list" class="free-houses-grid">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         2. OWNER PORTAL VIEW
+         ==================================================================== -->
+    <section id="portal-owner-view" class="portal-view">
+      
+      <!-- Owner Selector -->
+      <div class="glass-card" style="padding: 12px 18px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <span style="font-size: 13px; color: var(--text-secondary);" data-i18n="logged_as_owner">Viewing as Owner:</span>
+            <strong id="owner-selected-name" style="color: var(--accent-gold-light); margin-left: 6px;">Owner A (Ato Bekele) — 4 Units in Block A</strong>
+          </div>
+          <div>
+            <select id="owner-account-select" style="padding: 6px 12px; font-size: 13px; width: auto;">
+              <option value="owner-a">Owner A (Ato Bekele) — 4 Units in Block A</option>
+              <option value="owner-b">Owner B (W/ro Genet) — 2 Units in Block B</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-grid">
+        
+        <!-- Left Column: Owner Settlement Statement -->
+        <div>
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <span data-i18n="owner_statement_title">Owner Settlement Statement</span>
+              </h2>
+              <span id="owner-settlement-period" class="badge badge-success">Meskerem 2026</span>
+            </div>
+            <p class="card-subtitle" data-i18n="owner_statement_sub">Net payout calculation after building maintenance, admin cut, and common pool share</p>
+
+            <div class="bill-breakdown-card">
+              <div class="bill-line-item">
+                <span data-i18n="stmt_gross_rent">Gross Rent Collected from Units</span>
+                <strong id="owner-stmt-rent" style="color: var(--accent-success);">+32,000.00 ETB</strong>
+              </div>
+              <div class="bill-line-item">
+                <span data-i18n="stmt_admin_fee">Admin Management Fee (3%)</span>
+                <strong id="owner-stmt-admin" style="color: var(--accent-danger);">-960.00 ETB</strong>
+              </div>
+              <div class="bill-line-item">
+                <span data-i18n="stmt_building_repairs">Building Repairs & Fault Fixes</span>
+                <strong id="owner-stmt-repair" style="color: var(--accent-danger);">-1,200.00 ETB</strong>
+              </div>
+              <div class="bill-line-item">
+                <span data-i18n="stmt_utility_diff">Utility Difference (Pass-Through)</span>
+                <strong id="owner-stmt-util">0.00 ETB</strong>
+              </div>
+              <div class="bill-line-item">
+                <span data-i18n="stmt_common_share">Equal Share of Net Common Pool</span>
+                <strong id="owner-stmt-common" style="color: var(--accent-success);">+3,375.00 ETB</strong>
+              </div>
+              <div class="bill-line-item total-line">
+                <span data-i18n="stmt_net_payout">Net Period Payout to Owner</span>
+                <strong id="owner-stmt-payout">33,215.00 ETB</strong>
+              </div>
+            </div>
+
+            <!-- Worked Formula Explanation -->
+            <div style="background: rgba(195, 156, 77, 0.08); border: 1px dashed var(--border-gold); padding: 12px; border-radius: var(--radius-md); font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;">
+              <strong style="color: var(--accent-gold-light); display: block; margin-bottom: 4px;" data-i18n="how_calculated_title">How this payout was calculated:</strong>
+              <span data-i18n="formula_owner_explain">Net Payout = Rent (32,000) - Admin Fee (960) - Block A Pump Fault (1,200) + Common Share (3,375) = 33,215 ETB. Recorded entry by entry in the compound ledger.</span>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+              <button id="btn-copy-owner-statement" class="btn btn-secondary btn-block">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span data-i18n="btn_copy_statement">Copy Telegram Summary</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: My Owned Units Directory -->
+        <div>
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <span data-i18n="owner_units_title">My Owned Units Portfolio</span>
+              </h2>
+              <span id="owner-units-count" class="badge badge-info">4 Units</span>
+            </div>
+            <p class="card-subtitle" data-i18n="owner_units_sub">Status of each room, current tenant family, and agreed monthly rent</p>
+
+            <div class="table-responsive">
+              <table class="ekul-table">
+                <thead>
+                  <tr>
+                    <th data-i18n="col_unit">Unit #</th>
+                    <th data-i18n="col_floor">Floor</th>
+                    <th data-i18n="col_family">Active Family</th>
+                    <th class="text-right" data-i18n="col_rent">Rent (ETB)</th>
+                    <th class="text-center" data-i18n="col_status">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="owner-units-tbody">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Building Maintenance & Abnormality Fund Details -->
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                <span data-i18n="abnormality_title">Building Repairs Log</span>
+              </h2>
+              <span class="badge badge-warning" data-i18n="charged_to_building">Charged to Block A</span>
+            </div>
+            <p class="card-subtitle" data-i18n="abnormality_sub">Maintenance tickets and utility abnormality costs charged specifically to this building</p>
+
+            <div class="table-responsive">
+              <table class="ekul-table">
+                <thead>
+                  <tr>
+                    <th data-i18n="col_date">Date</th>
+                    <th data-i18n="col_description">Description / Fault</th>
+                    <th data-i18n="col_contractor">Contractor / Tech</th>
+                    <th class="text-right" data-i18n="col_amount">Cost (ETB)</th>
+                  </tr>
+                </thead>
+                <tbody id="owner-repairs-tbody">
+                  <tr>
+                    <td>2026-09-12</td>
+                    <td>Block A Water Pump Bearing Replacement</td>
+                    <td>Mulugeta Plumber</td>
+                    <td class="text-right" style="color: var(--accent-danger);">1,200.00 ETB</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         3. ADMIN PORTAL VIEW
+         ==================================================================== -->
+    <section id="portal-admin-view" class="portal-view">
+      
+      <!-- Sub Navigation Tabs for Admin -->
+      <div class="sub-nav-tabs">
+        <button class="sub-tab-btn active" data-admin-pane="pane-settlement">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span data-i18n="admin_tab_settlement">Settlements & Audit</span>
+        </button>
+        <button class="sub-tab-btn" data-admin-pane="pane-tenants">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          <span data-i18n="admin_tab_tenants">Tenant Lifecycle (Move-In/Out)</span>
+        </button>
+        <button class="sub-tab-btn" data-admin-pane="pane-utilities">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span data-i18n="admin_tab_utilities">Meters & Utility Faults</span>
+        </button>
+        <button class="sub-tab-btn" data-admin-pane="pane-cuts">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span data-i18n="admin_tab_cuts">Staff Cuts & Tariffs</span>
+        </button>
+        <button class="sub-tab-btn" data-admin-pane="pane-free-mgmt">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+          <span data-i18n="admin_tab_free">Free Houses Manager</span>
+        </button>
+      </div>
+
+      <!-- PANE 1: SETTLEMENTS & AUDIT RECONCILIATION -->
+      <div id="pane-settlement" class="sub-tab-pane active">
+        <div class="glass-card">
+          <div class="card-title-section">
+            <h2 class="card-title">
+              <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span data-i18n="settlement_runner_title">Monthly / Period Settlement Engine</span>
+            </h2>
+            <div style="display: flex; gap: 8px;">
+              <select id="settlement-period-select" style="padding: 4px 8px; font-size: 13px; width: auto;">
+                <option value="month">Monthly Cycle</option>
+                <option value="quarter">Quarterly (3 Months)</option>
+                <option value="six_month">Six Months</option>
+                <option value="annual">Annual Statement</option>
+              </select>
+              <button id="btn-recalculate-settlement" class="btn btn-primary btn-sm" data-i18n="btn_run_settlement">Calculate Settlement</button>
+            </div>
+          </div>
+          <p class="card-subtitle" data-i18n="settlement_runner_sub">Calculates net common pool, deducts staff cuts, and generates owner payouts</p>
+
+          <!-- Step 1: Net Common Pool Calculation Table -->
+          <h3 style="font-size: 14px; margin-bottom: 8px; color: var(--accent-gold-light);" data-i18n="step1_common_pool">Step 1: Net Common Pool Income</h3>
+          <div class="table-responsive" style="margin-bottom: 20px;">
+            <table class="ekul-table">
+              <thead>
+                <tr>
+                  <th data-i18n="col_line_item">Revenue / Expense Line</th>
+                  <th class="text-right" data-i18n="col_amount">Amount (ETB)</th>
+                  <th data-i18n="col_notes">Formula / Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Gross Common Income</strong></td>
+                  <td class="text-right" style="color: var(--accent-success);">+18,000.00 ETB</td>
+                  <td>Resident Parking (9,000) + Gate Fees (6,000) + Service Charges (3,000)</td>
+                </tr>
+                <tr>
+                  <td>Car Keeper (Parking Attendant) Cut</td>
+                  <td class="text-right" style="color: var(--accent-danger);">-900.00 ETB</td>
+                  <td>10% of total parking revenue</td>
+                </tr>
+                <tr>
+                  <td>Area Keeper (Guard) Gate Cut</td>
+                  <td class="text-right" style="color: var(--accent-danger);">-600.00 ETB</td>
+                  <td>10% of vehicle access fees</td>
+                </tr>
+                <tr>
+                  <td>Gate Cashier Cut</td>
+                  <td class="text-right" style="color: var(--accent-danger);">-750.00 ETB</td>
+                  <td>5% of gate vehicle fees collected</td>
+                </tr>
+                <tr>
+                  <td>Guard Monthly Salary</td>
+                  <td class="text-right" style="color: var(--accent-danger);">-5,000.00 ETB</td>
+                  <td>Common estate expense</td>
+                </tr>
+                <tr>
+                  <td>Compound Cleaner Salary</td>
+                  <td class="text-right" style="color: var(--accent-danger);">-2,500.00 ETB</td>
+                  <td>Common estate expense</td>
+                </tr>
+                <tr>
+                  <td>Common Electricity & Water (Hallways, Pumps)</td>
+                  <td class="text-right" style="color: var(--accent-danger);">-1,500.00 ETB</td>
+                  <td>Paid directly to utilities</td>
+                </tr>
+                <tr style="background: rgba(195, 156, 77, 0.15); font-weight: 700;">
+                  <td style="color: var(--accent-gold-light);">NET COMMON POOL (Shared by Owners)</td>
+                  <td class="text-right" style="color: var(--accent-gold-light);">6,750.00 ETB</td>
+                  <td>Equal share per owner (6,750 / 2 owners) = <strong>3,375.00 ETB each</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Step 2: Owner Settlement Summary Table -->
+          <h3 style="font-size: 14px; margin-bottom: 8px; color: var(--accent-gold-light);" data-i18n="step2_owner_payouts">Step 2: Owner Payout Calculations</h3>
+          <div class="table-responsive" style="margin-bottom: 20px;">
+            <table class="ekul-table">
+              <thead>
+                <tr>
+                  <th data-i18n="col_owner">Owner</th>
+                  <th data-i18n="col_units">Units</th>
+                  <th class="text-right" data-i18n="col_rent">Rent Collected</th>
+                  <th class="text-right" data-i18n="col_admin_cut">Admin Fee (3%)</th>
+                  <th class="text-right" data-i18n="col_repairs">Repairs / Faults</th>
+                  <th class="text-right" data-i18n="col_pool_share">Common Share</th>
+                  <th class="text-right" data-i18n="col_net_payout">Net Payout</th>
+                  <th class="text-center" data-i18n="col_action">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Owner A (Ato Bekele)</strong></td>
+                  <td>4 (Block A)</td>
+                  <td class="text-right">32,000.00</td>
+                  <td class="text-right" style="color: var(--accent-danger);">-960.00</td>
+                  <td class="text-right" style="color: var(--accent-danger);">-1,200.00</td>
+                  <td class="text-right" style="color: var(--accent-success);">+3,375.00</td>
+                  <td class="text-right"><strong style="color: var(--accent-gold-light);">33,215.00 ETB</strong></td>
+                  <td class="text-center"><span class="badge badge-success">Approved</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Owner B (W/ro Genet)</strong></td>
+                  <td>2 (Block B)</td>
+                  <td class="text-right">20,000.00</td>
+                  <td class="text-right" style="color: var(--accent-danger);">-600.00</td>
+                  <td class="text-right">0.00</td>
+                  <td class="text-right" style="color: var(--accent-success);">+3,375.00</td>
+                  <td class="text-right"><strong style="color: var(--accent-gold-light);">22,775.00 ETB</strong></td>
+                  <td class="text-center"><span class="badge badge-success">Approved</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Step 3: Mathematical Reconciliation Audit Proof -->
+          <div style="background: rgba(18, 11, 8, 0.7); border: 1.5px solid var(--accent-gold); border-radius: var(--radius-md); padding: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <h3 style="font-size: 14px; color: var(--accent-gold-light); display: flex; align-items: center; gap: 8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <span data-i18n="audit_reconciliation_title">Mathematical Reconciliation (Audit Proof)</span>
+              </h3>
+              <span class="badge badge-success" data-i18n="badge_balanced">100% Balanced</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;" data-i18n="audit_sub">
+              Total Inflow collected from families & gate: <strong>74,500.00 ETB</strong>. All outflow matches penny-for-penny:
+            </p>
+            <div class="table-responsive">
+              <table class="ekul-table" style="font-size: 12px;">
+                <tbody>
+                  <tr>
+                    <td>Utility Companies (Pass-Through): <strong>4,500 ETB</strong></td>
+                    <td>Staff Cuts (Parking, Guard, Cashier): <strong>2,250 ETB</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Salaries (Guard & Cleaner): <strong>7,500 ETB</strong></td>
+                    <td>Common Utility Bills: <strong>1,500 ETB</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Repair Contractor (Block A Pump): <strong>1,200 ETB</strong></td>
+                    <td>Admin Management Fee: <strong>1,560 ETB</strong></td>
+                  </tr>
+                  <tr style="font-weight: 700; color: var(--accent-gold-light);">
+                    <td>Total Owner Payouts: <strong>55,990.00 ETB</strong></td>
+                    <td>Total Accounted Outflow: <strong>74,500.00 ETB (Matched!)</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PANE 2: TENANT LIFECYCLE (MOVE-IN & MOVE-OUT) -->
+      <div id="pane-tenants" class="sub-tab-pane">
+        <div class="view-grid">
+          
+          <!-- Move-In Form -->
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                <span data-i18n="move_in_title">Register New Tenant (Move-In)</span>
+              </h2>
+            </div>
+            <p class="card-subtitle" data-i18n="move_in_sub">Set up contract, security deposit, starting meters, and parking slot</p>
+
+            <form id="move-in-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="move-in-unit" data-i18n="lbl_select_unit">Select Vacant Unit</label>
+                  <select id="move-in-unit">
+                    <option value="A-305">Block A - Room 305 (Floor 3) - 8,500 ETB</option>
+                    <option value="B-102">Block B - Room 102 (Floor 1) - 10,000 ETB</option>
+                    <option value="C-410">Block C - Room 410 (Floor 4) - 7,500 ETB</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="move-in-name" data-i18n="lbl_tenant_name">Family / Tenant Name</label>
+                  <input type="text" id="move-in-name" required placeholder="e.g. Yohannes Haile">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="move-in-phone" data-i18n="lbl_phone">Phone Number</label>
+                  <input type="text" id="move-in-phone" required placeholder="0911...">
+                </div>
+                <div class="form-group">
+                  <label for="move-in-deposit" data-i18n="lbl_deposit">Deposit Held (ETB)</label>
+                  <input type="number" id="move-in-deposit" value="16000">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="move-in-elec-start" data-i18n="lbl_elec_start">Starting Electricity Meter</label>
+                  <input type="number" id="move-in-elec-start" value="1420" placeholder="kWh">
+                </div>
+                <div class="form-group">
+                  <label for="move-in-water-start" data-i18n="lbl_water_start">Starting Water Meter</label>
+                  <input type="number" id="move-in-water-start" value="38" placeholder="m³">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block" style="margin-top: 10px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="btn_complete_move_in">Complete Move-In & Start Billing</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Move-Out Form -->
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                <span data-i18n="move_out_title">Process Departure (Move-Out)</span>
+              </h2>
+            </div>
+            <p class="card-subtitle" data-i18n="move_out_sub">Final meter reconciliation, prorating last month, and deposit refund</p>
+
+            <form id="move-out-form">
+              <div class="form-group">
+                <label for="move-out-family" data-i18n="lbl_select_departing">Select Active Family</label>
+                <select id="move-out-family">
+                  <option value="fam-1">Family Abebe — Block A, Room 207</option>
+                  <option value="fam-2">Family Almaz — Block A, Room 102</option>
+                  <option value="fam-3">Family Dawit — Block B, Room 301</option>
+                </select>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="move-out-elec" data-i18n="lbl_final_elec">Final Electricity Meter</label>
+                  <input type="number" id="move-out-elec" placeholder="e.g. 1590">
+                </div>
+                <div class="form-group">
+                  <label for="move-out-water" data-i18n="lbl_final_water">Final Water Meter</label>
+                  <input type="number" id="move-out-water" placeholder="e.g. 45">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="move-out-deductions" data-i18n="lbl_damages">Damages / Unpaid Dues (ETB)</label>
+                  <input type="number" id="move-out-deductions" value="0">
+                </div>
+                <div class="form-group">
+                  <label for="move-out-refund" data-i18n="lbl_refund_deposit">Deposit Refund (ETB)</label>
+                  <input type="number" id="move-out-refund" value="16000" readonly style="background: rgba(18, 11, 8, 0.4);">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-secondary btn-block" style="margin-top: 10px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+                <span data-i18n="btn_close_tenancy">Close Tenancy & Re-list as Free</span>
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PANE 3: UTILITIES & ABNORMALITY -->
+      <div id="pane-utilities" class="sub-tab-pane">
+        <div class="glass-card">
+          <div class="card-title-section">
+            <h2 class="card-title">
+              <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              <span data-i18n="log_repair_title">Log Building Repair / Abnormality Ticket</span>
+            </h2>
+          </div>
+          <p class="card-subtitle" data-i18n="log_repair_sub">According to Rule BR-10, maintenance costs are charged strictly to the owners of that building</p>
+
+          <form id="add-repair-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="repair-block" data-i18n="lbl_affected_building">Affected Building</label>
+                <select id="repair-block">
+                  <option value="Block A">Block A (Owner: Ato Bekele)</option>
+                  <option value="Block B">Block B (Owner: W/ro Genet)</option>
+                  <option value="Compound">Compound Shared Infrastructure (Common Pool)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="repair-cost" data-i18n="lbl_repair_cost">Total Cost (ETB)</label>
+                <input type="number" id="repair-cost" required placeholder="e.g. 1200">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="repair-desc" data-i18n="lbl_repair_desc">Description of Fault / Repair</label>
+                <input type="text" id="repair-desc" required placeholder="e.g. Water pump bearing replacement">
+              </div>
+              <div class="form-group">
+                <label for="repair-tech" data-i18n="lbl_contractor">Contractor / Technician Name</label>
+                <input type="text" id="repair-tech" required placeholder="e.g. Mulugeta Plumber">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="btn_record_repair">Record Repair Ticket</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- PANE 4: STAFF CUTS & TARIFF CONFIG -->
+      <div id="pane-cuts" class="sub-tab-pane">
+        <div class="view-grid">
+          
+          <!-- Staff Cut Rules -->
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span data-i18n="staff_cut_title">Staff Cut Rules (%)</span>
+              </h2>
+            </div>
+            <p class="card-subtitle" data-i18n="staff_cut_sub">Configurable commission deducted before common pool distribution (Rule BR-07)</p>
+
+            <div class="form-group">
+              <label for="cfg-cut-car" data-i18n="lbl_cut_car">Car Keeper (Parking Attendant) Cut (%)</label>
+              <input type="number" id="cfg-cut-car" value="10">
+            </div>
+            <div class="form-group">
+              <label for="cfg-cut-guard" data-i18n="lbl_cut_guard">Area Keeper (Guard) Gate Cut (%)</label>
+              <input type="number" id="cfg-cut-guard" value="10">
+            </div>
+            <div class="form-group">
+              <label for="cfg-cut-cashier" data-i18n="lbl_cut_cashier">Gate Cashier Cut (%)</label>
+              <input type="number" id="cfg-cut-cashier" value="5">
+            </div>
+            <div class="form-group">
+              <label for="cfg-admin-fee" data-i18n="lbl_admin_fee">Admin Management Fee (%)</label>
+              <input type="number" id="cfg-admin-fee" value="3">
+            </div>
+            <button id="btn-save-cuts" class="btn btn-secondary btn-block" data-i18n="btn_save_rules">Save Rules & Tariffs</button>
+          </div>
+
+          <!-- Gate Tariffs -->
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                <span data-i18n="gate_tariffs_title">Gate Tariffs (ETB)</span>
+              </h2>
+            </div>
+            <p class="card-subtitle" data-i18n="gate_tariffs_sub">Fee schedule for visitors, deliveries, and vehicles passing through</p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="tariff-resident" data-i18n="lbl_tariff_resident">Resident Monthly Parking</label>
+                <input type="number" id="tariff-resident" value="600">
+              </div>
+              <div class="form-group">
+                <label for="tariff-visitor-1" data-i18n="lbl_tariff_v1">Visitor Car (First Hour)</label>
+                <input type="number" id="tariff-visitor-1" value="20">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="tariff-visitor-add" data-i18n="lbl_tariff_vadd">Visitor Additional Hour</label>
+                <input type="number" id="tariff-visitor-add" value="10">
+              </div>
+              <div class="form-group">
+                <label for="tariff-overnight" data-i18n="lbl_tariff_overnight">Visitor Overnight Parking</label>
+                <input type="number" id="tariff-overnight" value="150">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="tariff-minibus" data-i18n="lbl_tariff_minibus">Taxi / Minibus Entry</label>
+                <input type="number" id="tariff-minibus" value="15">
+              </div>
+              <div class="form-group">
+                <label for="tariff-truck" data-i18n="lbl_tariff_truck">Delivery Truck Entry</label>
+                <input type="number" id="tariff-truck" value="50">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PANE 5: FREE HOUSES MANAGER -->
+      <div id="pane-free-mgmt" class="sub-tab-pane">
+        <div class="glass-card">
+          <div class="card-title-section">
+            <h2 class="card-title">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+              <span data-i18n="publish_free_title">Publish Free House</span>
+            </h2>
+          </div>
+          <p class="card-subtitle" data-i18n="publish_free_sub">Post unrented units to the public board for families and owners</p>
+
+          <form id="add-free-house-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="free-block" data-i18n="lbl_block">Block Name</label>
+                <input type="text" id="free-block" required placeholder="e.g. Block A">
+              </div>
+              <div class="form-group">
+                <label for="free-room" data-i18n="lbl_room">Room / Unit #</label>
+                <input type="text" id="free-room" required placeholder="e.g. A-305">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="free-floor" data-i18n="lbl_floor">Floor Number</label>
+                <input type="number" id="free-floor" required value="3">
+              </div>
+              <div class="form-group">
+                <label for="free-rent" data-i18n="lbl_monthly_rent">Monthly Rent (ETB)</label>
+                <input type="number" id="free-rent" required value="8500">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="btn_publish_unit">Publish to Free Houses List</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================================
+         4. GATE CONSOLE VIEW (SECURITY GUARD & CASHIER)
+         ==================================================================== -->
+    <section id="portal-gate-view" class="portal-view">
+      <div class="view-grid">
+        
+        <!-- Left Column: Fast Vehicle Check-In & Gate Register -->
+        <div>
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                <span data-i18n="gate_checkin_title">Vehicle Gate Entry Check-In</span>
+              </h2>
+              <span class="badge badge-success" data-i18n="badge_gate_open">Gate 1 Active</span>
+            </div>
+            <p class="card-subtitle" data-i18n="gate_checkin_sub">Register arriving vehicles. Registered residents pass free; visitors get a ticket</p>
+
+            <!-- Vehicle Type Selector Buttons -->
+            <label data-i18n="lbl_select_vtype">Select Vehicle Type</label>
+            <div class="gate-btn-grid" id="gate-type-selector">
+              <div class="gate-type-btn active" data-vtype="resident">
+                <span class="type-icon">🏠</span>
+                <span class="type-name" data-i18n="vtype_resident">Resident Car</span>
+                <span class="type-fee" data-i18n="fee_monthly_free">Monthly (Free Gate)</span>
+              </div>
+              <div class="gate-type-btn" data-vtype="visitor">
+                <span class="type-icon">🚗</span>
+                <span class="type-name" data-i18n="vtype_visitor">Visitor Car</span>
+                <span class="type-fee">20 ETB 1st hr</span>
+              </div>
+              <div class="gate-type-btn" data-vtype="minibus">
+                <span class="type-icon">🚐</span>
+                <span class="type-name" data-i18n="vtype_minibus">Taxi / Minibus</span>
+                <span class="type-fee">15 ETB / entry</span>
+              </div>
+              <div class="gate-type-btn" data-vtype="truck">
+                <span class="type-icon">🚚</span>
+                <span class="type-name" data-i18n="vtype_truck">Delivery Truck</span>
+                <span class="type-fee">50 ETB / entry</span>
+              </div>
+            </div>
+
+            <!-- Check-In Form -->
+            <form id="gate-entry-form">
+              <div class="form-group">
+                <label for="gate-plate-input" data-i18n="lbl_plate_number">License Plate Number</label>
+                <input type="text" id="gate-plate-input" required placeholder="e.g. 2-B-44122 AA" style="font-size: 18px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">
+              </div>
+
+              <div id="gate-plate-status-box" style="display: none; padding: 10px; border-radius: var(--radius-sm); margin-bottom: 12px; font-size: 13px;">
+                <!-- Populated by JS -->
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block" style="padding: 12px; font-size: 16px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span id="gate-action-btn-text" data-i18n="btn_record_entry">Record Entry & Issue Ticket</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Active Vehicles Inside Compound -->
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span data-i18n="active_inside_title">Vehicles Currently Inside</span>
+              </h2>
+              <span id="gate-inside-count" class="badge badge-info">2 Active</span>
+            </div>
+            <p class="card-subtitle" data-i18n="active_inside_sub">Click Exit to calculate duration fee and generate cashier receipt</p>
+
+            <div class="table-responsive">
+              <table class="ekul-table">
+                <thead>
+                  <tr>
+                    <th data-i18n="col_plate">Plate</th>
+                    <th data-i18n="col_type">Type</th>
+                    <th data-i18n="col_entry_time">Entry Time</th>
+                    <th class="text-right" data-i18n="col_action">Exit & Collect</th>
+                  </tr>
+                </thead>
+                <tbody id="gate-inside-tbody">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Cashier Shift Close & Log -->
+        <div>
+          <!-- Cashier Shift Summary -->
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 15h0M2 9.5h20"/></svg>
+                <span data-i18n="cashier_shift_title">Cashier Shift & Cash Reconciliation</span>
+              </h2>
+              <span class="badge badge-warning" data-i18n="shift_in_progress">Shift #42 Open</span>
+            </div>
+            <p class="card-subtitle" data-i18n="cashier_shift_sub">Every santim collected at the gate is audited against the append-only ledger</p>
+
+            <div class="bill-breakdown-card">
+              <div class="bill-line-item">
+                <span data-i18n="shift_visitor_fees">Visitor Parking Fees Collected</span>
+                <strong id="shift-visitor-val" style="color: var(--accent-success);">9,000.00 ETB</strong>
+              </div>
+              <div class="bill-line-item">
+                <span data-i18n="shift_access_fees">Vehicles Passing In/Out Fees</span>
+                <strong id="shift-access-val" style="color: var(--accent-success);">6,000.00 ETB</strong>
+              </div>
+              <div class="bill-line-item">
+                <span data-i18n="shift_cashier_cut">Cashier 5% Commission Cut</span>
+                <strong id="shift-cut-val" style="color: var(--accent-gold-light);">750.00 ETB</strong>
+              </div>
+              <div class="bill-line-item total-line">
+                <span data-i18n="shift_expected_cash">Expected Cash in Drawer</span>
+                <strong id="shift-expected-val">15,000.00 ETB</strong>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="shift-reported-cash" data-i18n="lbl_reported_cash">Actual Cash Counted in Hand (ETB)</label>
+              <input type="number" id="shift-reported-cash" value="15000">
+            </div>
+
+            <button id="btn-close-shift" class="btn btn-secondary btn-block">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+              <span data-i18n="btn_close_shift">Close Shift & Submit to Admin Ledger</span>
+            </button>
+          </div>
+
+          <!-- Printable Receipt Ticket Preview -->
+          <div class="glass-card" id="gate-receipt-ticket-card" style="display: none; border-color: var(--accent-gold);">
+            <div class="card-title-section">
+              <h3 class="card-title" style="font-size: 15px;">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                <span data-i18n="receipt_ticket_title">Gate Exit Receipt</span>
+              </h3>
+              <button class="btn btn-sm btn-secondary" onclick="window.print()">Print</button>
+            </div>
+            <div id="gate-receipt-content" style="background: rgba(18, 11, 8, 0.8); padding: 12px; border-radius: var(--radius-sm); font-family: monospace; font-size: 12px; color: var(--text-primary); line-height: 1.6;">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         5. BILL SPLITTER VIEW (LEGACY TOOL PRESERVED)
+         ==================================================================== -->
+    <section id="portal-splitter-view" class="portal-view">
+      <div class="view-grid">
+        
+        <!-- Left: Input forms -->
+        <div>
+          <!-- Households Directory Card -->
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span data-i18n="households_title">Household Directory</span>
+              </h2>
+            </div>
+            <p class="card-subtitle" data-i18n="households_subtitle">Manage residents, occupancy, and exemptions</p>
+
+            <form id="add-household-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="household-flat" data-i18n="flat_no">Condo / Flat No.</label>
+                  <input type="text" id="household-flat" required placeholder="e.g. B-4/102">
+                </div>
+                <div class="form-group">
+                  <label for="household-name" data-i18n="resident_name">Resident Name</label>
+                  <input type="text" id="household-name" required placeholder="e.g. Abebe Kebede">
+                </div>
+              </div>
+
+              <div class="form-row" style="align-items: center;">
+                <div class="form-group">
+                  <label for="household-occupants" data-i18n="occupants_count">No. of Residents</label>
+                  <input type="number" id="household-occupants" value="2" min="1" max="20" required>
+                </div>
+                <div class="form-group">
+                  <div class="switch-container">
+                    <span style="font-size: 12px; font-weight: 500;" data-i18n="ground_exempt">Ground Floor? (Pump Exempt)</span>
+                    <label class="switch" for="household-ground-exempt">
+                      <input type="checkbox" id="household-ground-exempt">
+                      <span class="slider"></span>
+                    </label>
                   </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="switch-container">
+                  <span style="font-size: 12px; font-weight: 500;" data-i18n="student_discount">Student / Shared? (Half Share)</span>
                   <label class="switch" for="household-student-discount">
                     <input type="checkbox" id="household-student-discount">
                     <span class="slider"></span>
                   </label>
                 </div>
               </div>
+
+              <button type="submit" class="btn btn-primary btn-block" data-i18n="add_household">Add Household</button>
+            </form>
+
+            <div id="households-list-container" class="items-list" style="margin-top: 15px;">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Expenses Card -->
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <span data-i18n="bills_title">Communal Bills Board</span>
+              </h2>
+            </div>
+            <p class="card-subtitle" data-i18n="bills_subtitle">Input current month's irregular communal expenses</p>
+
+            <div id="bills-input-container">
+              <!-- Populated by JS -->
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;" data-i18n="add_household">Add Household</button>
-          </form>
-
-          <!-- DYNAMIC HOUSEHOLD LIST -->
-          <div id="households-list-container" class="items-list">
-            <!-- Populated via JS -->
+            <button id="btn-add-bill-row" class="btn btn-secondary btn-block" style="margin-top: 10px;" data-i18n="add_bill">Add Expense Row</button>
           </div>
-        </section>
+        </div>
 
-        <!-- CARD 2: COMMUNAL BILL BOARD -->
-        <section class="glass-card" aria-labelledby="bills-section-title">
-          <div class="card-title-section">
-            <h2 id="bills-section-title" class="card-title">
-              <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              <span data-i18n="bills_title">Communal Bills Board</span>
-            </h2>
-          </div>
-          <p class="card-subtitle" data-i18n="bills_subtitle">Input current month's irregular expenses</p>
-          
-          <!-- DYNAMIC BILL ROWS INPUT -->
-          <div id="bills-input-container">
-            <!-- Populated via JS -->
-          </div>
-
-          <div style="display: flex; gap: 10px; margin-top: 15px;">
-            <button id="btn-add-bill-row" class="btn btn-secondary" style="flex: 1;" data-i18n="add_bill">Add Expense Row</button>
-          </div>
-        </section>
-
-        <!-- CARD 3: CBE & TELEBIRR CONFIGURATION -->
-        <section class="glass-card" aria-labelledby="payment-section-title">
-          <div class="card-title-section">
-            <h2 id="payment-section-title" class="card-title">
-              <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-              <span data-i18n="payment_title">Payment Information</span>
-            </h2>
-          </div>
-          <p class="card-subtitle" data-i18n="payment_subtitle">CBE & Telebirr transfer instructions</p>
-
-          <form id="collector-settings-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="collector-name" data-i18n="collector_name">Collector Name</label>
-                <input type="text" id="collector-name" placeholder="e.g., Committee B-4">
-              </div>
-              <div class="form-group">
-                <label for="telebirr-no" data-i18n="telebirr_no">Telebirr Number</label>
-                <input type="text" id="telebirr-no" placeholder="e.g., 0911223344">
-              </div>
+        <!-- Right: Results & Telegram Output -->
+        <div>
+          <div class="glass-card">
+            <div class="card-title-section">
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span data-i18n="results_title">Calculated Split Summary</span>
+              </h2>
             </div>
+            <p class="card-subtitle" data-i18n="results_subtitle">Individual resident breakdown & copyable Telegram template</p>
+
+            <div id="results-list-container" style="margin-bottom: 20px;">
+              <!-- Populated by JS -->
+            </div>
+
+            <h3 style="font-size: 14px; margin-bottom: 8px; color: var(--accent-gold-light);" data-i18n="tab_template">Telegram Group Template</h3>
+            <textarea id="telegram-template-textarea" readonly style="height: 180px; font-family: monospace; font-size: 12px; margin-bottom: 10px;"></textarea>
             
-            <div class="bank-inputs-grid">
-              <div class="form-group">
-                <label for="cbe-acc" data-i18n="cbe_acc">CBE Account Number</label>
-                <input type="text" id="cbe-acc" placeholder="e.g., 1000123456789">
-              </div>
-              <div class="form-group">
-                <label for="cbe-bank" data-i18n="cbe_bank">Bank Name</label>
-                <input type="text" id="cbe-bank" placeholder="Commercial Bank of Ethiopia">
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 10px;" data-i18n="save_settings">Save Config</button>
-          </form>
-        </section>
+            <button id="btn-copy-template" class="btn btn-success btn-block">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span data-i18n="btn_copy">Copy Telegram Template</span>
+            </button>
+          </div>
+        </div>
 
       </div>
+    </section>
 
-      <!-- RIGHT-HAND COLUMN (CALCULATION & OUTPUT PREVIEWS) -->
-      <div class="results-panel">
-        
-        <!-- CARD 4: CALCULATION SPLIT BOARD -->
-        <section class="glass-card" aria-labelledby="results-section-title">
-          <div class="card-title-section">
-            <h2 id="results-section-title" class="card-title">
-              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-              <span data-i18n="results_title">Calculated Split Summary</span>
-            </h2>
-          </div>
-          <p class="card-subtitle" data-i18n="results_subtitle">Instant individual breakdown & copyable templates</p>
-
-          <!-- VIEW SELECTION TABS -->
-          <nav class="tab-header" aria-label="Result View Mode">
-            <button id="tab-breakdown-btn" class="tab-btn active" data-i18n="tab_breakdown">Household Shares</button>
-            <button id="tab-template-btn" class="tab-btn" data-i18n="tab_template">Telegram Template</button>
-          </nav>
-
-          <!-- TAB VIEW A: DYNAMIC SHARES DIRECTORY -->
-          <div id="results-breakdown-view">
-            <div id="results-list-container" class="results-list">
-              <!-- Populated via JS -->
-            </div>
-          </div>
-
-          <!-- TAB VIEW B: TELEGRAM READY TEMPLATE PREVIEW -->
-          <div id="results-template-view" style="display: none;">
-            <div class="template-container">
-              <textarea id="telegram-template-textarea" class="template-textarea" readonly aria-label="Formatted copy-pasteable Telegram template text"></textarea>
-            </div>
-            
-            <div class="template-actions">
-              <button id="btn-copy-template" class="btn btn-success">
-                <!-- Copy Clipboard Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                </svg>
-                <span data-i18n="btn_copy">Copy to Clipboard</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- DYNAMIC UTILITIES ACTION FOOTER -->
-          <div class="section-divider"></div>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button id="btn-log-history" class="btn btn-primary" style="flex: 1.2;" data-i18n="btn_save_history">Log Month to History</button>
-            <button id="btn-clear-calculator" class="btn btn-danger" style="flex: 0.8;" data-i18n="btn_clear">Reset Calculator</button>
-          </div>
-        </section>
-
-        <!-- CARD 5: HISTORY TRACKER -->
-        <section class="glass-card" aria-labelledby="history-section-title">
-          <div class="card-title-section">
-            <h2 id="history-section-title" class="card-title">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span data-i18n="history_title">Past Split Logs</span>
-            </h2>
-            <button id="btn-clear-history" class="btn btn-danger" style="font-size: 11px; padding: 4px 10px; border-radius: var(--radius-sm);" data-i18n="btn_clear_history">Clear Logs</button>
-          </div>
-
-          <!-- LIST OF SAVED SESSIONS -->
-          <div id="history-logs-container">
-            <!-- Populated via JS -->
-          </div>
-        </section>
-
-      </div>
-
-    </main>
-
-    <!-- FOOTER SIGNATURE -->
+    <!-- FOOTER -->
     <footer>
-      <p>Condo-Calc &copy; 2026. Made with love for shared urban living. Run fully offline and secure on your browser.</p>
+      <p>
+        <strong>Ekul (እኩል)</strong> &copy; 2026 — <span data-i18n="app_tagline">Fair shares, peaceful homes</span>.
+        <br>
+        <span data-i18n="footer_sub">An Integrated Web and Mobile Platform for Ethiopian Apartment Area Management.</span>
+      </p>
     </footer>
 
   </div>
 
-  <!-- DETAILS MATH BREAKDOWN MODAL OVERLAY -->
-  <div id="details-modal-overlay" class="modal-overlay" onclick="if(event.target === this) closeBreakdownModal();" aria-modal="true" role="dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="modal-title-text" class="modal-title">Split Breakdown</h3>
-        <button class="modal-close" onclick="closeBreakdownModal()">&times;</button>
-      </div>
-      <div id="modal-table-body" style="display: flex; flex-direction: column; gap: 12px;">
-        <!-- Dynamic Breakdown rows -->
-      </div>
-      <div style="margin-top: 24px; text-align: right;">
-        <button class="btn btn-secondary" onclick="closeBreakdownModal()" data-i18n="modal_close">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toast-container" class="toast" role="alert">
-    <!-- Success Check Icon SVG -->
-    <svg viewBox="0 0 24 24">
-      <polyline points="20 6 9 17 4 12"></polyline>
-    </svg>
-    <span id="toast-message-text">Success Message!</span>
-  </div>
-
-  <!-- Load Engine Application script -->
+  <!-- Application Logic -->
   <script src="app.js"></script>
-
 </body>
 </html>

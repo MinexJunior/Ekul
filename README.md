@@ -1,75 +1,108 @@
-# 🏢 Condo-Calc
-
-**Condo-Calc** is an elegant, zero-database, mobile-first shared apartment and condominium building expense splitter. Tailored specifically for the urban community structures of Ethiopia (e.g., Addis Ababa), it resolves the frequent friction of splitting irregular and fluctuating communal bills (such as security guard fees, garbage collection, water pump fuel, elevator lifting electricity, and hallway lighting) unevenly among residents.
-
-The application is built using a premium **warm-earth & coffee-brown theme** that provides a high-fidelity visual experience with a bilingual toggle interface supporting both **English and Amharic (አማርኛ)**.
+# 🏢 እኩል | Ekul — Fair Shares, Peaceful Homes
+> **An Integrated Web and Mobile Platform for Ethiopian Apartment Area Management**  
+> *Billing for rent, water, electricity, and parking; vehicle gate fees; staff cuts; owner income settlement; and tenant move-in / move-out.*
 
 ---
 
-## ✨ Features
+## 🌟 Executive Summary
 
-1. **🎨 Premium Earth & Coffee Aesthetic**: Rich dark cocoa glassmorphic surfaces, golden/bronze borders, and warm latte/cream typography with smooth hover micro-animations.
-2. **🇪🇹 Custom Local Variables**:
-   * **Ground Floor Exemption**: Units on the ground floor can be excluded from lifting/water pumping costs with a single click.
-   * **Student & Roommate Discounts**: Support for students or sub-letters paying half-share (weighted splits).
-   * **Vacant Tracking**: Skip utility usage divisions for unoccupied units while retaining fixed charges (like security).
-3. **🇪🇹 Integrated Ethiopian Payment Methods**: Complete configuration fields for **Telebirr** and **Commercial Bank of Ethiopia (CBE)** account numbers.
-4. **💬 One-Click Telegram/SMS Templates**: Instantly generates perfectly formatted messages with matching emojis (bilingual Amharic/English formats) ready to copy and paste into community group chats.
-5. **📴 100% Offline Capability (PWA)**: Completely configured Service Worker caches crucial assets. Save the app to your phone's home screen and run it anywhere—even without a stable cellular network in Addis!
-6. **💾 Saved Split Logs (History)**: Synchronizes configuration settings, active resident databases, active bills, and historical logs straight to browser `localStorage`. You can reload previous months' distributions in one click!
+In Ethiopian cities, apartment areas and condominium compounds are vibrant mini-communities. Multiple families live across blocks belonging to different owners, sharing common gates, guards, parking lots, water pumps, and compound lighting. Managing these shared finances with notebooks, phone calculators, and disorganized chat groups causes frequent misunderstandings, delays, and friction.
+
+**Ekul (እኩል, "equal")** resolves this by providing a unified, transparent platform built around an append-only financial ledger. Every family understands their exact bill, property owners follow their income and building-specific deductions, guards and cashiers receive fair and auditable cuts, and the estate administrator closes each period with complete mathematical reconciliation.
 
 ---
 
-## 📂 File Architecture
+## 🏛️ The Three Portals & Gate Console
 
-The repository is structured with zero payload bloat, ensuring instant load speeds over 3G/4G:
-* **[index.html](file:///c:/Downloads/apartment_expense_spiltter/index.html)**: Semantic, mobile-first container with bilingual translation tags and custom inline SVG iconography.
-* **[style.css](file:///c:/Downloads/apartment_expense_spiltter/style.css)**: Coffee design system with CSS custom properties, backdrop filters, responsive grid modules, and glowing keyframes.
-* **[app.js](file:///c:/Downloads/apartment_expense_spiltter/app.js)**: State processor, weighted mathematical split logic, bilingual dictionaries, clipboard copiers, and local storage bindings.
-* **[sw.js](file:///c:/Downloads/apartment_expense_spiltter/sw.js)**: Progressive service worker caching routine.
-* **[manifest.json](file:///c:/Downloads/apartment_expense_spiltter/manifest.json)**: PWA web app descriptor specifying icons and startup parameters.
+Ekul provides dedicated interfaces tailored for each stakeholder in the apartment community:
+
+### 1. 👨‍👩‍👧 Family Portal (Tenant)
+* **Transparent Monthly Bill**: Itemized breakdown of house rent, private electricity meter usage, water share, resident parking, and compound security/cleaning fees.
+* **Payment Submission & Receipts**: Instant transfer instructions for **Telebirr** and **Commercial Bank of Ethiopia (CBE)** with payment code registration and confirmation status.
+* **Registered Vehicles**: Register family cars for automatic, free gate entry.
+* **Free Houses Directory**: Browse vacant units listed by the administrator across the compound.
+
+### 2. 🏢 Owner Portal (Property Owners)
+* **Owned Units Portfolio**: Real-time view of owned units across blocks, floors, and current tenant occupancy.
+* **Period Settlement Statement**: Transparent income report:
+  $$\text{Net Payout} = \text{Gross Rent} - \text{Admin Fee (3\%)} - \text{Building Repairs/Faults} + \text{Share of Common Pool}$$
+* **Building Abnormality Log**: Verification of maintenance tickets (e.g. water pump repair) charged strictly to that specific building.
+
+### 3. 🛡️ Admin Portal (Estate Administrator)
+* **Tenant Lifecycle Management**: Streamlined move-in wizard (contracts, deposits, starting meters, parking slots) and move-out closing (final meter readings, damage deductions, deposit refund).
+* **Meters & Abnormality Fund**: Tracks building utility usage and charges repair tickets to responsible owners.
+* **Settlement Engine & Audit Proof**: Automatically proves that 100% of collected estate inflows equal the sum of utility payments, staff cuts, staff salaries, contractor repairs, admin management fees, and owner payouts.
+* **Free Houses Management**: Post and unlist vacant apartments with photos, rent, floor, and room numbers.
+
+### 4. 🚗 Gate Console (Security Guards & Cashiers)
+* **Fast Touch Interface**: High-contrast, large-button design optimized for outdoor mobile use.
+* **Gate Tariffs**: Automatic fee calculation for visitor parking (hourly & overnight) and service vehicles (taxis, minibuses, delivery trucks, moving trucks).
+* **Cashier Shift Closing**: Audits physical cash in hand against expected ledger receipts to eliminate missing cash.
+* **Printable / Digital Ticket**: Generates instant entry and exit receipts.
+
+### 5. 🧮 Communal Bill Splitter (Legacy Tool Preserved)
+* Fast, database-free expense division with weighted shares, ground-floor pump exemptions, student half-shares, and bilingual Telegram group templates.
 
 ---
 
-## 🛠️ Local Usage Instructions
+## 💰 Financial Model & Calculation Rules
 
-Since the web application is built with pure vanilla technologies, it has **zero compile dependencies**. You do not need to install `npm`, `vite`, or any bundlers!
+Ekul enforces clear, community-tested business rules:
+* **Rule BR-01 to BR-03**: Rent belongs directly to the unit owner minus agreed deductions.
+* **Rule BR-07**: Staff cuts (e.g., 10% parking attendant cut, 10% guard gate cut, 5% cashier cut) are deducted from vehicle income before the common pool is split.
+* **Rule BR-09**: Net common pool (parking, gate fees, service charges minus staff cuts, salaries, and common utilities) is shared equally among owners by default.
+* **Rule BR-10**: Building repairs and utility leaks are charged strictly to the owners of that building.
+* **Rule BR-14**: Every transaction is recorded in an immutable, append-only ledger.
 
-1. Open your explorer and double-click **`index.html`** to load the application directly in any browser (Chrome, Firefox, Safari, Edge).
-2. Or run a lightweight Python server inside this directory:
+---
+
+## 🇪🇹 Bilingual Support & Local Context
+
+Ekul features complete, first-class bilingual support in both **English** and **Amharic (አማርኛ)** across all portals, receipts, alerts, and statements. It respects local Ethiopian apartment terminology and integrates payment instructions for Telebirr and CBE.
+
+---
+
+## 🛠️ How to Run Locally
+
+Ekul is currently built with vanilla web technologies and runs directly in any modern browser without heavy compilation:
+
+1. Double-click `index.html` to open in Google Chrome, Microsoft Edge, Safari, or Firefox.
+2. Or serve it using Python's built-in HTTP server:
    ```bash
-   python -m http.server 8000
+   python3 -m http.server 8000
    ```
-   Then open `http://localhost:8000` in your web browser.
+   Then open `http://localhost:8000` in your browser.
 
 ---
 
-## 🚀 One-Click GitHub Pages Hosting
+## 🚀 GitHub Repository & Renaming Guide
 
-You can host this web application for **free** on GitHub Pages for public preview and showcase:
+To rename your existing GitHub repository and update your local git configuration:
 
-1. Create a new public repository on your GitHub account (e.g., named `apartment-expense-splitter`).
-2. Push this local directory to your GitHub repository:
+1. **On GitHub**:
+   * Navigate to your repository settings (`MinexJunior/apartment_expense_spiltter`).
+   * In **General** > **Repository name**, change it to `ekul`.
+
+2. **On your computer**:
    ```bash
-   git init
+   # Update the remote URL
+   git remote set-url origin https://github.com/MinexJunior/ekul.git
+   
+   # Check status and verify
+   git status
    git add .
-   git commit -m "Initial commit of Condo-Calc"
-   git remote add origin https://github.com/<your-username>/<your-repo-name>.git
-   git branch -M main
-   git push -u origin main
+   git commit -m "feat: transform into Ekul apartment area management platform"
+   git push origin main
    ```
-3. Enable GitHub Pages:
-   * Go to your repository settings on GitHub.
-   * On the left sidebar, click **Pages**.
-   * Under **Build and deployment**, select **Deploy from a branch**.
-   * Choose the **`main`** branch and folder **`/ (root)`**, then click **Save**.
-4. Within 1-2 minutes, your live URL will be available at:
-   `https://<your-username>.github.io/<your-repo-name>/`
 
 ---
 
-## 📊 Splitting Method Methodologies
+## 🗺️ Roadmap (Stage 2 & Stage 3)
 
-* **Weighted Equal (የእኩል ክፍያ + ቅናሾች)**: Total bill divided by sum of resident weights. Normal units = `1.0` weight, Student/Shared units = `0.5` weight. If the bill name matches pump/lift keywords and a unit is "Ground Floor", its weight becomes `0.0`.
-* **Strict Flat (እኩል ክፍያ)**: Divided strictly equally among all active units (Total / Count). All exemptions and student discounts are ignored.
-* **Per Capita (በነዋሪዎች ቁጥር)**: Multiplies bill total by `(Unit Occupants / Total Occupants)`. Ground floor exemptions reduce occupant count to `0.0` for water pump charges.
+* **Stage 2 (Full-Stack Backend)**: Scaffolding Node.js + Express + TypeScript API with PostgreSQL (Prisma ORM) and Redis BullMQ for automated monthly billing and Telegram Bot alerts.
+* **Stage 3 (Mobile Application)**: React Native / Expo mobile application for tenants and gate cashiers with offline synchronization.
+* **Stage 4**: Direct Telebirr and CBE API payment confirmations.
+
+---
+
+**Ekul (እኩል)** &copy; 2026. Made with dedication for fair, peaceful, and harmonious urban living in Ethiopia.

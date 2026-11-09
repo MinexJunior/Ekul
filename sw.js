@@ -1,4 +1,4 @@
-const CACHE_NAME = 'condo-calc-v1';
+const CACHE_NAME = 'ekul-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -38,7 +38,7 @@ self.addEventListener('fetch', (e) => {
       if (cachedResponse) {
         // Fetch in background to update cache (stale-while-revalidate)
         fetch(e.request).then((networkResponse) => {
-          if (networkResponse.status === 200) {
+          if (networkResponse && networkResponse.status === 200) {
             caches.open(CACHE_NAME).then((cache) => cache.put(e.request, networkResponse));
           }
         }).catch(() => {/* Ignore network failures when offline */});
