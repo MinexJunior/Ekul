@@ -75,27 +75,7 @@ Ekul is currently built with vanilla web technologies and runs directly in any m
 
 ---
 
-## 🚀 GitHub Repository & Renaming Guide
 
-To rename your existing GitHub repository and update your local git configuration:
-
-1. **On GitHub**:
-   * Navigate to your repository settings (`MinexJunior/apartment_expense_spiltter`).
-   * In **General** > **Repository name**, change it to `ekul`.
-
-2. **On your computer**:
-   ```bash
-   # Update the remote URL
-   git remote set-url origin https://github.com/MinexJunior/ekul.git
-   
-   # Check status and verify
-   git status
-   git add .
-   git commit -m "feat: transform into Ekul apartment area management platform"
-   git push origin main
-   ```
-
----
 
 ## 🗺️ Roadmap (Stage 2 & Stage 3)
 
